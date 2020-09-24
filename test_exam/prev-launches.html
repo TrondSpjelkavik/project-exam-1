@@ -8,41 +8,44 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>About SpaceX</title>
-    <meta
-      name="keywords"
-      content="space,spacex,aerospace,launches,about,falcon rocket,starship,upcoming launches,previous launches."
-    />
-    <meta
-      name="description"
-      content="SpaceX uses reflown rockets and has over 100 total launches. SpaceX was founded in 2002 to revolutionize space technology, with the ultimate goal of enabling people to live on other planets. "
-    />
+    <title></title>
+    <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <nav>
-      <img class="logo-img" src="./img/SpaceX-Logo.svg" alt="" />
-      <ul class="nav-bar">
-        <li id="aboutBtn" class="active">About</li>
-        <li id="launchesBtn">Launches</li>
-        <li id="contactBtn">Contact</li>
-      </ul>
+    <section class="prev-launches-img">
+      <nav>
+        <img class="logo-img" src="./img/SpaceX-Logo.svg" alt="" />
+        <ul class="nav-bar">
+          <li id="aboutBtn">About</li>
+          <li id="launchesBtn">Launches</li>
+          <li id="contactBtn">Contact</li>
+        </ul>
 
-      <div class="menu">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
-      <div class="x">
-        <div class="x1"></div>
-        <div class="x2"></div>
-      </div>
-    </nav>
-    <div class="menu-appear"></div>
-
-    <section class="company-info"></section>
-
+        <div class="menu">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+        <div class="x">
+          <div class="x1"></div>
+          <div class="x2"></div>
+        </div>
+      </nav>
+      <div class="menu-appear"></div>
+    </section>
+    <h1 class="up-launches-headline">Previous Launches</h1>
+    <div class="sort-box">
+      <div class="sort-btn">Latest Launches</div>
+    </div>
+    <div class="loading-section">
+      <div class="rocket-loading"></div>
+      <div class="right-wing"></div>
+      <div class="left-wing"></div>
+      <p class="loading-text">Loading....</p>
+    </div>
+    <section class="up-launches-selection"></section>
     <footer>
       <img src="./img/SpaceX-Logo.svg" class="footer-logo" />
       <div class="footer-links">
@@ -67,6 +70,6 @@
       </div>
     </footer>
     <script src="./js/menu.js" async defer></script>
-    <script src="./js/about.js" async defer></script>
+    <script src="./js/launches-prev.js" async defer></script>
   </body>
 </html>

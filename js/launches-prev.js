@@ -1,72 +1,76 @@
-const upcomingLaunchesUrl = "https://api.spacexdata.com/v4/launches/past";
+const previousLaunchesUrl = "https://api.spacexdata.com/v4/launches/past";
 
+let footer = document.querySelector("footer");
+footer.style.display = "none";
 async function spaceXapi() {
   try {
-    const upcomingLaunchesResponse = await fetch(upcomingLaunchesUrl);
-    const upcomingLaunchesdata = await upcomingLaunchesResponse.json();
-
-    fetchData(upcomingLaunchesdata);
+    const previousLaunchesResponse = await fetch(previousLaunchesUrl);
+    const previousLaunchesdata = await previousLaunchesResponse.json();
+    fetchData(previousLaunchesdata);
   } catch (error) {
     console.log(error);
   } finally {
     const loading = document.querySelector(".loading-section");
     loading.style.display = "none";
+    let sortBtn = document.querySelector(".sort-btn");
+    sortBtn.style.display = "block";
+
+    footer.style.display = "block";
   }
 }
 
 spaceXapi();
 
-function fetchData(upcomingLaunchesdata) {
-  console.log(upcomingLaunchesdata);
-  const upcomingLaunchesContainer = document.querySelector(
+function fetchData(previousLaunchesdata) {
+  const previousLaunchesContainer = document.querySelector(
     ".up-launches-selection"
   );
 
   let sortBtn = document.querySelector(".sort-btn");
 
   sortBtn.addEventListener("click", () => {
-    upcomingLaunchesdata.sort((a, b) => b.flight_number - a.flight_number);
-    upcomingLaunchesContainer.innerHTML = "";
-    fetchData(upcomingLaunchesdata);
+    previousLaunchesdata.sort((a, b) => b.flight_number - a.flight_number);
+    previousLaunchesContainer.innerHTML = "";
+    fetchData(previousLaunchesdata);
   });
 
-  for (let i = 0; i < upcomingLaunchesdata.length; i++) {
-    if (!upcomingLaunchesdata[i].links.patch.small) {
-      upcomingLaunchesdata[i].links.patch.small =
+  for (let i = 0; i < previousLaunchesdata.length; i++) {
+    if (!previousLaunchesdata[i].links.patch.small) {
+      previousLaunchesdata[i].links.patch.small =
         "https://images2.imgbox.com/9a/96/nLppz9HW_o.png";
     }
-    if (!upcomingLaunchesdata[i].details) {
-      upcomingLaunchesdata[
+    if (!previousLaunchesdata[i].details) {
+      previousLaunchesdata[
         i
       ].details = `No details available. Read more about this mission on Wikipedia: 
       <div class="launches-links-appear"> 
-        <p onclick="location.href='${upcomingLaunchesdata[i].links.wikipedia}'">WIKIPEDIA</p>
+        <p onclick="location.href='${previousLaunchesdata[i].links.wikipedia}'">WIKIPEDIA</p>
         </div>`;
     }
 
-    upcomingLaunchesContainer.innerHTML += `
+    previousLaunchesContainer.innerHTML += `
     
     <div class="launches-box"> 
    
         <div class="launches-details">
-        <div class="img-box">
+        <div class="rocket-logo-box">
         <img src="${
-          upcomingLaunchesdata[i].links.patch.small
-        }" class="launches-img" alt="" >
+          previousLaunchesdata[i].links.patch.small
+        }" class="launches-img" alt="Logo of ${previousLaunchesdata[i].name}" >
         </div>
-        <p>Name: ${upcomingLaunchesdata[i].name} </p>
-        <p>Flight Number: ${upcomingLaunchesdata[i].flight_number} </p>
-        <p>Liftoff: ${upcomingLaunchesdata[i].date_local.slice(0, -15)} </p>
+        <p>Name: ${previousLaunchesdata[i].name} </p>
+        <p>Flight Number: ${previousLaunchesdata[i].flight_number} </p>
+        <p>Liftoff: ${previousLaunchesdata[i].date_local.slice(0, -15)} </p>
         <p class="details-launches">Details </p>
         <div class="launches-links"> 
         <p onclick="location.href='${
-          upcomingLaunchesdata[i].links.article
+          previousLaunchesdata[i].links.article
         }'">ARTICLE</p>
         <p onclick="location.href='${
-          upcomingLaunchesdata[i].links.webcast
+          previousLaunchesdata[i].links.webcast
         }'">WEBCAST</p>
         <p onclick="location.href='${
-          upcomingLaunchesdata[i].links.wikipedia
+          previousLaunchesdata[i].links.wikipedia
         }'">WIKIPEDIA</p>
         </div>
        
@@ -74,7 +78,7 @@ function fetchData(upcomingLaunchesdata) {
         </div>
         <div class="close">X</div>
         <div class="scroll">
-        <span class="details-appear"> ${upcomingLaunchesdata[i].details}</span>
+        <span class="details-appear"> ${previousLaunchesdata[i].details}</span>
         </div>
     </div>
     `;
@@ -110,13 +114,12 @@ function fetchData(upcomingLaunchesdata) {
 const nav = document.querySelector("nav");
 
 window.onscroll = function scrollEvent(e) {
-  if (e.currentTarget.pageYOffset > 300) {
+  if (e.currentTarget.pageYOffset > 200) {
     nav.style.backgroundColor = "#0f1112";
     nav.style.top = "0";
     nav.style.width = "100%";
+    nav.style.transition = "0.2s ease-in";
   } else {
-    nav.style.backgroundColor = "rgb(22, 26, 29, 0.6)";
-    nav.style.top = "2%";
-    nav.style.width = "850px";
+    nav.style.backgroundColor = "rgb(22, 26, 29, 0.7)";
   }
 };

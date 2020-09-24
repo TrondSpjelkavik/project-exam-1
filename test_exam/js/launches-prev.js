@@ -1,4 +1,4 @@
-const upcomingLaunchesUrl = "https://api.spacexdata.com/v4/launches/upcoming/";
+const upcomingLaunchesUrl = "https://api.spacexdata.com/v4/launches/past";
 
 let footer = document.querySelector("footer");
 footer.style.display = "none";
@@ -13,6 +13,8 @@ async function spaceXapi() {
   } finally {
     const loading = document.querySelector(".loading-section");
     loading.style.display = "none";
+    let sortBtn = document.querySelector(".sort-btn");
+    sortBtn.style.display = "block";
     let footer = document.querySelector("footer");
     footer.style.display = "block";
   }
@@ -21,9 +23,18 @@ async function spaceXapi() {
 spaceXapi();
 
 function fetchData(upcomingLaunchesdata) {
+  console.log(upcomingLaunchesdata);
   const upcomingLaunchesContainer = document.querySelector(
     ".up-launches-selection"
   );
+
+  let sortBtn = document.querySelector(".sort-btn");
+
+  sortBtn.addEventListener("click", () => {
+    upcomingLaunchesdata.sort((a, b) => b.flight_number - a.flight_number);
+    upcomingLaunchesContainer.innerHTML = "";
+    fetchData(upcomingLaunchesdata);
+  });
 
   for (let i = 0; i < upcomingLaunchesdata.length; i++) {
     if (!upcomingLaunchesdata[i].links.patch.small) {
@@ -31,26 +42,28 @@ function fetchData(upcomingLaunchesdata) {
         "https://images2.imgbox.com/9a/96/nLppz9HW_o.png";
     }
     if (!upcomingLaunchesdata[i].details) {
-      upcomingLaunchesdata[i].details = `No details yet. Try again later `;
-    }
-    if (!upcomingLaunchesdata[i].links.webcast) {
-      upcomingLaunchesdata[i].links.webcast =
-        "https://www.youtube.com/user/spacexchannel";
+      upcomingLaunchesdata[
+        i
+      ].details = `No details available. Read more about this mission on Wikipedia: 
+      <div class="launches-links-appear"> 
+        <p onclick="location.href='${upcomingLaunchesdata[i].links.wikipedia}'">WIKIPEDIA</p>
+        </div>`;
     }
 
     upcomingLaunchesContainer.innerHTML += `
+    
     <div class="launches-box"> 
    
         <div class="launches-details">
         <div class="rocket-logo-box">
         <img src="${
           upcomingLaunchesdata[i].links.patch.small
-        }" class="launches-img" alt="logo of ${upcomingLaunchesdata[i].name} " >
+        }" class="launches-img" alt="" >
         </div>
         <p>Name: ${upcomingLaunchesdata[i].name} </p>
         <p>Flight Number: ${upcomingLaunchesdata[i].flight_number} </p>
         <p>Liftoff: ${upcomingLaunchesdata[i].date_local.slice(0, -15)} </p>
-        <p class="details-launches">Details  </p>
+        <p class="details-launches">Details </p>
         <div class="launches-links"> 
         <p onclick="location.href='${
           upcomingLaunchesdata[i].links.article
@@ -71,6 +84,7 @@ function fetchData(upcomingLaunchesdata) {
         </div>
     </div>
     `;
+
     let detailsBtn = document.querySelectorAll(".details-launches");
     let closeBtn = document.querySelectorAll(".close");
     let detailsAppear = document.querySelectorAll(".details-appear");
@@ -98,16 +112,3 @@ function fetchData(upcomingLaunchesdata) {
     }
   }
 }
-
-const nav = document.querySelector("nav");
-
-window.onscroll = function scrollEvent(e) {
-  if (e.currentTarget.pageYOffset > 200) {
-    nav.style.backgroundColor = "#0f1112";
-    nav.style.top = "0";
-    nav.style.width = "100%";
-    nav.style.transition = "0.2s ease-in";
-  } else {
-    nav.style.backgroundColor = "rgb(22, 26, 29, 0.7)";
-  }
-};

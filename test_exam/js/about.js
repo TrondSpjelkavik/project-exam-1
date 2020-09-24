@@ -3,6 +3,7 @@ const spacexCompanyInfo = "https://api.spacexdata.com/v4/company";
 async function spaceXapi() {
   try {
     const spacexCompanyResponse = await fetch(spacexCompanyInfo);
+
     const spacexCompanyData = await spacexCompanyResponse.json();
 
     fetchData(spacexCompanyData);
@@ -14,6 +15,7 @@ async function spaceXapi() {
 spaceXapi();
 
 function fetchData(spacexCompanyData) {
+  console.log(spacexCompanyData);
   const spacexCompanyContainer = document.querySelector(".company-info");
 
   spacexCompanyContainer.innerHTML += `
@@ -59,13 +61,13 @@ function fetchData(spacexCompanyData) {
     <div class="company-staff-box">
   <div class="company-img-box">
   <div class="staff-box">
-  <img alt="${spacexCompanyData.coo}" src="./img/Gwynne.jpg" class="staff-img">
+  <img src="./img/Gwynne.jpg" class="staff-img">
   <p> COO: ${spacexCompanyData.coo} </p>
   <img onclick="window.open('https://www.linkedin.com/in/gwynneshotwell/')" src="./img/LinkedIn.png" class="social-media_2">
   </div>
   <div class="staff-box">
-  <img alt="${spacexCompanyData.founder}" src="./img/musk.jpg" class="staff-img">
-  <p> CEO: ${spacexCompanyData.founder} </p>
+  <img src="./img/musk.jpg" class="staff-img">
+  <p> COO: ${spacexCompanyData.founder} </p>
   <img onclick="window.open('${spacexCompanyData.links.elon_twitter}')"  src="./img/twitterlogo2.png" class="social-media">
   </div>
   </div>
@@ -74,16 +76,3 @@ function fetchData(spacexCompanyData) {
 
   `;
 }
-
-const nav = document.querySelector("nav");
-
-window.onscroll = function scrollEvent(e) {
-  if (e.currentTarget.pageYOffset > 200) {
-    nav.style.backgroundColor = "#0f1112";
-    nav.style.top = "0";
-    nav.style.width = "100%";
-    nav.style.transition = "0.2s ease-in";
-  } else {
-    nav.style.backgroundColor = "rgb(22, 26, 29, 0.7)";
-  }
-};

@@ -21,6 +21,7 @@ async function spaceXapi() {
 spaceXapi();
 
 function fetchData(upcomingLaunchesdata) {
+  console.log(upcomingLaunchesdata);
   const upcomingLaunchesContainer = document.querySelector(
     ".up-launches-selection"
   );
@@ -33,10 +34,6 @@ function fetchData(upcomingLaunchesdata) {
     if (!upcomingLaunchesdata[i].details) {
       upcomingLaunchesdata[i].details = `No details yet. Try again later `;
     }
-    if (!upcomingLaunchesdata[i].links.webcast) {
-      upcomingLaunchesdata[i].links.webcast =
-        "https://www.youtube.com/user/spacexchannel";
-    }
 
     upcomingLaunchesContainer.innerHTML += `
     <div class="launches-box"> 
@@ -45,7 +42,7 @@ function fetchData(upcomingLaunchesdata) {
         <div class="rocket-logo-box">
         <img src="${
           upcomingLaunchesdata[i].links.patch.small
-        }" class="launches-img" alt="logo of ${upcomingLaunchesdata[i].name} " >
+        }" class="launches-img" alt="" >
         </div>
         <p>Name: ${upcomingLaunchesdata[i].name} </p>
         <p>Flight Number: ${upcomingLaunchesdata[i].flight_number} </p>
@@ -98,16 +95,3 @@ function fetchData(upcomingLaunchesdata) {
     }
   }
 }
-
-const nav = document.querySelector("nav");
-
-window.onscroll = function scrollEvent(e) {
-  if (e.currentTarget.pageYOffset > 200) {
-    nav.style.backgroundColor = "#0f1112";
-    nav.style.top = "0";
-    nav.style.width = "100%";
-    nav.style.transition = "0.2s ease-in";
-  } else {
-    nav.style.backgroundColor = "rgb(22, 26, 29, 0.7)";
-  }
-};
