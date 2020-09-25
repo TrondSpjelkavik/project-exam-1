@@ -63,11 +63,11 @@
           ></iframe>
         </div>
 
-        <label for="name">Name</label>
+        <label for="name">Name <span class="required">*</span></label>
         <input type="text" placeholder="Your Name" name="user_name" id="name" />
         <p class="name-error">Please fill in your name</p>
 
-        <label for="email">E-Mail</label>
+        <label for="email">E-Mail <span class="required">*</span></label>
         <input
           type="email"
           placeholder="Your E-mail"
@@ -75,7 +75,9 @@
           id="email"
         />
         <p class="email-error">Please fill in your email</p>
-        <label for="message" class="textarea-message">Write a message</label>
+        <label for="message" class="textarea-message"
+          >Write a message <span class="required">*</span></label
+        >
         <textarea
           id="message"
           placeholder="Write a message..."

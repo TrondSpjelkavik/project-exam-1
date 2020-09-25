@@ -508,6 +508,10 @@ main {
   height: 100vh;
 }
 
+.required {
+  color: red;
+}
+
 label {
   color: var(--main-white);
   font-size: 18px;
@@ -1269,6 +1273,9 @@ a {
   }
   .company-links-list {
     max-width: 300px;
+  }
+  .social-media {
+    margin-left: 0px;
   }
 }
 
