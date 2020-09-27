@@ -69,6 +69,12 @@ function fetchData(nextLaunchdata, spacexCrewData, rocketsData) {
         "m " +
         seconds +
         "s ";
+      if (newLaunch <= 0) {
+        clearInterval();
+        document.querySelector(".next-launch-timer").innerHTML =
+          `<span> LIFTOFF: </span>  ` + `Waiting for next Launch Date`;
+      }
+      console.log(newLaunch);
     }, 1000);
 
     nextLaunchRocketContainer.innerHTML += `
